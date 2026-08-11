@@ -1,0 +1,387 @@
+import random
+from colorama import init, Fore, Style
+
+# Initialize Colorama
+init(autoreset=True)
+
+
+# ============================================================
+#                       DISPLAY HELPERS
+# ============================================================
+
+def clear_screen():
+    """Print enough blank lines to visually clear the terminal."""
+    print("\n" * 3)
+
+
+def print_header():
+    """Display the main program header."""
+    print(Fore.CYAN + Style.BRIGHT)
+    print("╔══════════════════════════════════════════════════════╗")
+    print("║                                                      ║")
+    print("║             🎟  FLORIDA LOTTERY PICKER  🎟           ║")
+    print("║                                                      ║")
+    print("║             Random Number Generator                  ║")
+    print("║                                                      ║")
+    print("╚══════════════════════════════════════════════════════╝")
+    print(Style.RESET_ALL)
+
+
+def print_menu():
+    """Display the main menu."""
+    print(Fore.YELLOW + Style.BRIGHT)
+    print("╔══════════════════════════════════════════════════════╗")
+    print("║                    MAIN MENU                         ║")
+    print("╠══════════════════════════════════════════════════════╣")
+    print("║                                                      ║")
+    print("║   [1]  🎱  Powerball                                ║")
+    print("║   [2]  💰  Mega Millions                            ║")
+    print("║   [3]  🍀  Florida Lotto                            ║")
+    print("║   [4]  🔢  Pick 5                                   ║")
+    print("║   [5]  🔢  Pick 4                                   ║")
+    print("║   [6]  🎟️   Generate All Games                      ║")
+    print("║   [7]  🚪  Exit                                     ║")
+    print("║                                                      ║")
+    print("╚══════════════════════════════════════════════════════╝")
+    print(Style.RESET_ALL)
+
+
+def print_section_title(title):
+    """Display a formatted section title."""
+    print()
+    print(Fore.CYAN + Style.BRIGHT + "╔" + "═" * 52 + "╗")
+    print(f"║  {title:<50}║")
+    print("╚" + "═" * 52 + "╝")
+    print(Style.RESET_ALL)
+
+
+def pause():
+    """Pause before returning to the menu."""
+    input(Fore.WHITE + "\nPress ENTER to return to the main menu...")
+
+
+# ============================================================
+#                       LOTTERY GAMES
+# ============================================================
+
+def generate_powerball():
+    """
+    Generate a Powerball ticket.
+
+    5 unique numbers from 1-69
+    1 Powerball from 1-26
+    """
+
+    numbers = sorted(random.sample(range(1, 70), 5))
+    powerball = random.randint(1, 26)
+
+    print_section_title("🎱 POWERBALL")
+
+    print(Fore.WHITE + "  Your Numbers:")
+    print()
+
+    print(
+        "  " +
+        "   ".join(
+            Fore.WHITE + Style.BRIGHT + f"{number:02d}"
+            for number in numbers
+        )
+    )
+
+    print()
+    print(Fore.RED + Style.BRIGHT + "  Powerball:")
+    print()
+    print(
+        "  " +
+        Fore.RED +
+        Style.BRIGHT +
+        f"🔴 {powerball:02d}"
+    )
+
+
+def generate_mega_millions():
+    """
+    Generate a Mega Millions ticket.
+
+    5 unique numbers from 1-70
+    1 Mega Ball from 1-24
+    """
+
+    numbers = sorted(random.sample(range(1, 71), 5))
+    mega_ball = random.randint(1, 24)
+
+    print_section_title("💰 MEGA MILLIONS")
+
+    print(Fore.WHITE + "  Your Numbers:")
+    print()
+
+    print(
+        "  " +
+        "   ".join(
+            Fore.WHITE + Style.BRIGHT + f"{number:02d}"
+            for number in numbers
+        )
+    )
+
+    print()
+    print(Fore.YELLOW + Style.BRIGHT + "  Mega Ball:")
+    print()
+
+    print(
+        "  " +
+        Fore.YELLOW +
+        Style.BRIGHT +
+        f"🟡 {mega_ball:02d}"
+    )
+
+
+def generate_florida_lotto():
+    """
+    Generate a Florida Lotto ticket.
+
+    6 unique numbers from 1-53
+    """
+
+    numbers = sorted(random.sample(range(1, 54), 6))
+
+    print_section_title("🍀 FLORIDA LOTTO")
+
+    print(Fore.WHITE + "  Your Numbers:")
+    print()
+
+    print(
+        "  " +
+        "   ".join(
+            Fore.GREEN + Style.BRIGHT + f"{number:02d}"
+            for number in numbers
+        )
+    )
+
+
+def generate_pick_5():
+    """
+    Generate a Pick 5 number.
+
+    5 digits from 0-9.
+    Duplicate digits are allowed.
+    """
+
+    number = "".join(
+        str(random.randint(0, 9))
+        for _ in range(5)
+    )
+
+    print_section_title("🔢 PICK 5")
+
+    print(Fore.WHITE + "  Your Number:")
+    print()
+
+    print(
+        "  " +
+        Fore.MAGENTA +
+        Style.BRIGHT +
+        f"★ {number} ★"
+    )
+
+
+def generate_pick_4():
+    """
+    Generate a Pick 4 number.
+
+    4 digits from 0-9.
+    Duplicate digits are allowed.
+    """
+
+    number = "".join(
+        str(random.randint(0, 9))
+        for _ in range(4)
+    )
+
+    print_section_title("🔢 PICK 4")
+
+    print(Fore.WHITE + "  Your Number:")
+    print()
+
+    print(
+        "  " +
+        Fore.BLUE +
+        Style.BRIGHT +
+        f"★ {number} ★"
+    )
+
+
+# ============================================================
+#                    GENERATE ALL GAMES
+# ============================================================
+
+def generate_all():
+    """Generate a ticket for every lottery game."""
+
+    print_section_title("🎟️  QUICK PICK — ALL GAMES")
+
+    print(Fore.CYAN + "  Generating your numbers...")
+    print()
+
+    # Powerball
+    numbers = sorted(random.sample(range(1, 70), 5))
+    powerball = random.randint(1, 26)
+
+    print(Fore.WHITE + Style.BRIGHT + "  🎱 POWERBALL")
+    print(
+        "     " +
+        "  ".join(f"{number:02d}" for number in numbers) +
+        Fore.RED +
+        f"   |   PB {powerball:02d}"
+    )
+
+    print()
+
+    # Mega Millions
+    numbers = sorted(random.sample(range(1, 71), 5))
+    mega_ball = random.randint(1, 24)
+
+    print(Fore.WHITE + Style.BRIGHT + "  💰 MEGA MILLIONS")
+    print(
+        "     " +
+        "  ".join(f"{number:02d}" for number in numbers) +
+        Fore.YELLOW +
+        f"   |   MB {mega_ball:02d}"
+    )
+
+    print()
+
+    # Florida Lotto
+    numbers = sorted(random.sample(range(1, 54), 6))
+
+    print(Fore.WHITE + Style.BRIGHT + "  🍀 FLORIDA LOTTO")
+    print(
+        "     " +
+        "  ".join(f"{number:02d}" for number in numbers)
+    )
+
+    print()
+
+    # Pick 5
+    pick5 = "".join(
+        str(random.randint(0, 9))
+        for _ in range(5)
+    )
+
+    print(Fore.WHITE + Style.BRIGHT + "  🔢 PICK 5")
+    print(f"     {Fore.MAGENTA}{pick5}")
+
+    print()
+
+    # Pick 4
+    pick4 = "".join(
+        str(random.randint(0, 9))
+        for _ in range(4)
+    )
+
+    print(Fore.WHITE + Style.BRIGHT + "  🔢 PICK 4")
+    print(f"     {Fore.BLUE}{pick4}")
+
+    print()
+    print(Fore.GREEN + Style.BRIGHT + "  ✓ All numbers generated successfully!")
+
+
+# ============================================================
+#                         MAIN PROGRAM
+# ============================================================
+
+def main():
+
+    while True:
+
+        clear_screen()
+
+        print_header()
+        print_menu()
+
+        choice = input(
+            Fore.GREEN +
+            Style.BRIGHT +
+            "  Enter your selection: "
+        ).strip()
+
+        if choice == "1":
+
+            clear_screen()
+            print_header()
+            generate_powerball()
+            pause()
+
+        elif choice == "2":
+
+            clear_screen()
+            print_header()
+            generate_mega_millions()
+            pause()
+
+        elif choice == "3":
+
+            clear_screen()
+            print_header()
+            generate_florida_lotto()
+            pause()
+
+        elif choice == "4":
+
+            clear_screen()
+            print_header()
+            generate_pick_5()
+            pause()
+
+        elif choice == "5":
+
+            clear_screen()
+            print_header()
+            generate_pick_4()
+            pause()
+
+        elif choice == "6":
+
+            clear_screen()
+            print_header()
+            generate_all()
+            pause()
+
+        elif choice == "7":
+
+            clear_screen()
+
+            print(Fore.CYAN + Style.BRIGHT)
+            print("╔══════════════════════════════════════════════════════╗")
+            print("║                                                      ║")
+            print("║          Thank you for using the                    ║")
+            print("║          Florida Lottery Picker!                    ║")
+            print("║                                                      ║")
+            print("║                 Good luck! 🍀                        ║")
+            print("║                                                      ║")
+            print("╚══════════════════════════════════════════════════════╝")
+            print(Style.RESET_ALL)
+
+            break
+
+        else:
+
+            print(
+                Fore.RED +
+                Style.BRIGHT +
+                "\n  ❌ Invalid selection."
+            )
+
+            print(
+                Fore.WHITE +
+                "  Please enter a number between 1 and 7."
+            )
+
+            pause()
+
+
+# ============================================================
+#                     PROGRAM START
+# ============================================================
+
+if __name__ == "__main__":
+    main()

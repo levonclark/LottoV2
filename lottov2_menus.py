@@ -1,3 +1,9 @@
+###########################################
+# Florida Lottery Picker Version 2.0
+# Programmed by Levon Clark
+# "One day everyone will be a winner."
+#############################################
+
 import random
 from colorama import init, Fore, Style
 
@@ -20,8 +26,8 @@ def print_header():
     print("╔══════════════════════════════════════════════════════╗")
     print("║                                                      ║")
     print("║             🎟  FLORIDA LOTTERY PICKER  🎟           ║")
-    print("║                                                      ║")
-    print("║             Random Number Generator                  ║")
+    print("║                Programmed by Levon Clark             ║")
+    print("║             One Day We Will All Be Winners!          ║")
     print("║                                                      ║")
     print("╚══════════════════════════════════════════════════════╝")
     print(Style.RESET_ALL)

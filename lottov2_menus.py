@@ -4,11 +4,26 @@
 # "One day everyone will be a winner."
 #############################################
 
+```python
 import random
 from colorama import init, Fore, Style
 
 # Initialize Colorama
 init(autoreset=True)
+
+
+# ============================================================
+#                    TICKET PRICES
+# ============================================================
+
+POWERBALL_COST = 2.00
+MEGA_MILLIONS_COST = 5.00
+FLORIDA_LOTTO_COST = 2.00
+
+# Pick 4 and Pick 5 can be played for $0.50 or $1.00.
+# This program uses $1.00 as the default.
+PICK_5_COST = 1.00
+PICK_4_COST = 1.00
 
 
 # ============================================================
@@ -27,7 +42,7 @@ def print_header():
     print("║                                                      ║")
     print("║             🎟  FLORIDA LOTTERY PICKER  🎟           ║")
     print("║                Programmed by Levon Clark             ║")
-    print("║             One Day We Will All Be Winners!          ║")
+    print("║              One Day We Will All Be Winners!         ║")
     print("║                                                      ║")
     print("╚══════════════════════════════════════════════════════╝")
     print(Style.RESET_ALL)
@@ -40,13 +55,13 @@ def print_menu():
     print("║                    MAIN MENU                         ║")
     print("╠══════════════════════════════════════════════════════╣")
     print("║                                                      ║")
-    print("║   [1]  🎱  Powerball                                ║")
-    print("║   [2]  💰  Mega Millions                            ║")
-    print("║   [3]  🍀  Florida Lotto                            ║")
-    print("║   [4]  🔢  Pick 5                                   ║")
-    print("║   [5]  🔢  Pick 4                                   ║")
-    print("║   [6]  🎟️   Generate All Games                      ║")
-    print("║   [7]  🚪  Exit                                     ║")
+    print("║   [1]  🎱  Powerball              $2.00             ║")
+    print("║   [2]  💰  Mega Millions          $5.00             ║")
+    print("║   [3]  🍀  Florida Lotto          $2.00             ║")
+    print("║   [4]  🔢  Pick 5                 $1.00             ║")
+    print("║   [5]  🔢  Pick 4                 $1.00             ║")
+    print("║   [6]  🎟️  Generate All Games    $11.00             ║")
+    print("║   [7]  🚪  Exit                                      ║")
     print("║                                                      ║")
     print("╚══════════════════════════════════════════════════════╝")
     print(Style.RESET_ALL)
@@ -61,9 +76,22 @@ def print_section_title(title):
     print(Style.RESET_ALL)
 
 
+def print_cost(cost):
+    """Display the ticket cost."""
+    print()
+    print(
+        Fore.GREEN +
+        Style.BRIGHT +
+        f"  💵 Ticket Cost: ${cost:.2f}"
+    )
+
+
 def pause():
     """Pause before returning to the menu."""
-    input(Fore.WHITE + "\nPress ENTER to return to the main menu...")
+    input(
+        Fore.WHITE +
+        "\nPress ENTER to return to the main menu..."
+    )
 
 
 # ============================================================
@@ -89,7 +117,9 @@ def generate_powerball():
     print(
         "  " +
         "   ".join(
-            Fore.WHITE + Style.BRIGHT + f"{number:02d}"
+            Fore.WHITE +
+            Style.BRIGHT +
+            f"{number:02d}"
             for number in numbers
         )
     )
@@ -97,12 +127,15 @@ def generate_powerball():
     print()
     print(Fore.RED + Style.BRIGHT + "  Powerball:")
     print()
+
     print(
         "  " +
         Fore.RED +
         Style.BRIGHT +
         f"🔴 {powerball:02d}"
     )
+
+    print_cost(POWERBALL_COST)
 
 
 def generate_mega_millions():
@@ -124,7 +157,9 @@ def generate_mega_millions():
     print(
         "  " +
         "   ".join(
-            Fore.WHITE + Style.BRIGHT + f"{number:02d}"
+            Fore.WHITE +
+            Style.BRIGHT +
+            f"{number:02d}"
             for number in numbers
         )
     )
@@ -139,6 +174,8 @@ def generate_mega_millions():
         Style.BRIGHT +
         f"🟡 {mega_ball:02d}"
     )
+
+    print_cost(MEGA_MILLIONS_COST)
 
 
 def generate_florida_lotto():
@@ -158,10 +195,14 @@ def generate_florida_lotto():
     print(
         "  " +
         "   ".join(
-            Fore.GREEN + Style.BRIGHT + f"{number:02d}"
+            Fore.GREEN +
+            Style.BRIGHT +
+            f"{number:02d}"
             for number in numbers
         )
     )
+
+    print_cost(FLORIDA_LOTTO_COST)
 
 
 def generate_pick_5():
@@ -189,6 +230,8 @@ def generate_pick_5():
         f"★ {number} ★"
     )
 
+    print_cost(PICK_5_COST)
+
 
 def generate_pick_4():
     """
@@ -215,6 +258,8 @@ def generate_pick_4():
         f"★ {number} ★"
     )
 
+    print_cost(PICK_4_COST)
+
 
 # ============================================================
 #                    GENERATE ALL GAMES
@@ -223,12 +268,23 @@ def generate_pick_4():
 def generate_all():
     """Generate a ticket for every lottery game."""
 
+    total_cost = (
+        POWERBALL_COST +
+        MEGA_MILLIONS_COST +
+        FLORIDA_LOTTO_COST +
+        PICK_5_COST +
+        PICK_4_COST
+    )
+
     print_section_title("🎟️  QUICK PICK — ALL GAMES")
 
     print(Fore.CYAN + "  Generating your numbers...")
     print()
 
-    # Powerball
+    # --------------------------------------------------------
+    # POWERBALL
+    # --------------------------------------------------------
+
     numbers = sorted(random.sample(range(1, 70), 5))
     powerball = random.randint(1, 26)
 
@@ -240,9 +296,17 @@ def generate_all():
         f"   |   PB {powerball:02d}"
     )
 
+    print(
+        Fore.GREEN +
+        f"     Cost: ${POWERBALL_COST:.2f}"
+    )
+
     print()
 
-    # Mega Millions
+    # --------------------------------------------------------
+    # MEGA MILLIONS
+    # --------------------------------------------------------
+
     numbers = sorted(random.sample(range(1, 71), 5))
     mega_ball = random.randint(1, 24)
 
@@ -254,9 +318,17 @@ def generate_all():
         f"   |   MB {mega_ball:02d}"
     )
 
+    print(
+        Fore.GREEN +
+        f"     Cost: ${MEGA_MILLIONS_COST:.2f}"
+    )
+
     print()
 
-    # Florida Lotto
+    # --------------------------------------------------------
+    # FLORIDA LOTTO
+    # --------------------------------------------------------
+
     numbers = sorted(random.sample(range(1, 54), 6))
 
     print(Fore.WHITE + Style.BRIGHT + "  🍀 FLORIDA LOTTO")
@@ -265,30 +337,69 @@ def generate_all():
         "  ".join(f"{number:02d}" for number in numbers)
     )
 
+    print(
+        Fore.GREEN +
+        f"     Cost: ${FLORIDA_LOTTO_COST:.2f}"
+    )
+
     print()
 
-    # Pick 5
+    # --------------------------------------------------------
+    # PICK 5
+    # --------------------------------------------------------
+
     pick5 = "".join(
         str(random.randint(0, 9))
         for _ in range(5)
     )
 
     print(Fore.WHITE + Style.BRIGHT + "  🔢 PICK 5")
-    print(f"     {Fore.MAGENTA}{pick5}")
+    print(
+        f"     {Fore.MAGENTA}{pick5}"
+    )
+
+    print(
+        Fore.GREEN +
+        f"     Cost: ${PICK_5_COST:.2f}"
+    )
 
     print()
 
-    # Pick 4
+    # --------------------------------------------------------
+    # PICK 4
+    # --------------------------------------------------------
+
     pick4 = "".join(
         str(random.randint(0, 9))
         for _ in range(4)
     )
 
     print(Fore.WHITE + Style.BRIGHT + "  🔢 PICK 4")
-    print(f"     {Fore.BLUE}{pick4}")
+    print(
+        f"     {Fore.BLUE}{pick4}"
+    )
+
+    print(
+        Fore.GREEN +
+        f"     Cost: ${PICK_4_COST:.2f}"
+    )
+
+    # --------------------------------------------------------
+    # TOTAL
+    # --------------------------------------------------------
 
     print()
-    print(Fore.GREEN + Style.BRIGHT + "  ✓ All numbers generated successfully!")
+    print(Fore.CYAN + Style.BRIGHT)
+    print("  ══════════════════════════════════════════════════")
+
+    print(
+        Fore.GREEN +
+        Style.BRIGHT +
+        f"  💵 TOTAL FOR ALL 5 GAMES: ${total_cost:.2f}"
+    )
+
+    print(Fore.CYAN + Style.BRIGHT)
+    print("  ══════════════════════════════════════════════════")
 
 
 # ============================================================
@@ -359,8 +470,8 @@ def main():
             print(Fore.CYAN + Style.BRIGHT)
             print("╔══════════════════════════════════════════════════════╗")
             print("║                                                      ║")
-            print("║          Thank you for using the                    ║")
-            print("║          Florida Lottery Picker!                    ║")
+            print("║          Thank you for using the                     ║")
+            print("║   Florida Lottery Picker Programmed by Levon Clark!  ║")
             print("║                                                      ║")
             print("║                 Good luck! 🍀                        ║")
             print("║                                                      ║")
@@ -391,3 +502,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+```

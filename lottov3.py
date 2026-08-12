@@ -1,10 +1,9 @@
 ###########################################
-# Florida Lottery Picker Version 2.0
+# Florida Lottery Picker Version 3.0
 # Programmed by Levon Clark
 # "One day everyone will be a winner."
 #############################################
 
-```python
 import random
 from colorama import init, Fore, Style
 
@@ -13,7 +12,7 @@ init(autoreset=True)
 
 
 # ============================================================
-#                    TICKET PRICES
+#TICKET PRICES CAN BE ADJUSTED AS THE ECONOMY GOES UP AND DOWN
 # ============================================================
 
 POWERBALL_COST = 2.00
@@ -470,10 +469,11 @@ def main():
             print(Fore.CYAN + Style.BRIGHT)
             print("╔══════════════════════════════════════════════════════╗")
             print("║                                                      ║")
-            print("║          Thank you for using the                     ║")
-            print("║   Florida Lottery Picker Programmed by Levon Clark!  ║")
+            print("║     Thank you for using the Florida Lottery Picker   ║")
+            print("║                      Version 3.0                     ║")
+            print("║              Programmed by Levon Clark!              ║")
             print("║                                                      ║")
-            print("║                 Good luck! 🍀                        ║")
+            print("║                      Good luck! 🍀                  ║")
             print("║                                                      ║")
             print("╚══════════════════════════════════════════════════════╝")
             print(Style.RESET_ALL)
@@ -502,4 +502,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-```

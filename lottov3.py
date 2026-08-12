@@ -18,6 +18,7 @@ init(autoreset=True)
 POWERBALL_COST = 2.00
 MEGA_MILLIONS_COST = 5.00
 FLORIDA_LOTTO_COST = 2.00
+FLORIDA_FANTASY_5_COST = 1.00
 
 # Pick 4 and Pick 5 can be played for $0.50 or $1.00.
 # This program uses $1.00 as the default.
@@ -57,10 +58,11 @@ def print_menu():
     print("║   [1]  🎱  Powerball              $2.00             ║")
     print("║   [2]  💰  Mega Millions          $5.00             ║")
     print("║   [3]  🍀  Florida Lotto          $2.00             ║")
-    print("║   [4]  🔢  Pick 5                 $1.00             ║")
-    print("║   [5]  🔢  Pick 4                 $1.00             ║")
-    print("║   [6]  🎟️  Generate All Games    $11.00             ║")
-    print("║   [7]  🚪  Exit                                      ║")
+    print("║   [4]  ✨  Florida Fantasy 5      $1.00             ║")
+    print("║   [5]  🔢  Pick 5                 $1.00             ║")
+    print("║   [6]  🔢  Pick 4                 $1.00             ║")
+    print("║   [7]  🎟️  Generate All Games    $12.00             ║")
+    print("║   [8]  🚪  Exit                                      ║")
     print("║                                                      ║")
     print("╚══════════════════════════════════════════════════════╝")
     print(Style.RESET_ALL)
@@ -204,6 +206,33 @@ def generate_florida_lotto():
     print_cost(FLORIDA_LOTTO_COST)
 
 
+def generate_fantasy_5():
+    """
+    Generate a Florida Fantasy 5 ticket.
+
+    5 unique numbers from 1-36
+    """
+
+    numbers = sorted(random.sample(range(1, 37), 5))
+
+    print_section_title("✨ FLORIDA FANTASY 5")
+
+    print(Fore.WHITE + "  Your Numbers:")
+    print()
+
+    print(
+        "  " +
+        "   ".join(
+            Fore.CYAN +
+            Style.BRIGHT +
+            f"{number:02d}"
+            for number in numbers
+        )
+    )
+
+    print_cost(FLORIDA_FANTASY_5_COST)
+
+
 def generate_pick_5():
     """
     Generate a Pick 5 number.
@@ -271,6 +300,7 @@ def generate_all():
         POWERBALL_COST +
         MEGA_MILLIONS_COST +
         FLORIDA_LOTTO_COST +
+        FLORIDA_FANTASY_5_COST +
         PICK_5_COST +
         PICK_4_COST
     )
@@ -344,6 +374,25 @@ def generate_all():
     print()
 
     # --------------------------------------------------------
+    # FLORIDA FANTASY 5
+    # --------------------------------------------------------
+
+    numbers = sorted(random.sample(range(1, 37), 5))
+
+    print(Fore.WHITE + Style.BRIGHT + "  ✨ FLORIDA FANTASY 5")
+    print(
+        "     " +
+        "  ".join(f"{number:02d}" for number in numbers)
+    )
+
+    print(
+        Fore.GREEN +
+        f"     Cost: ${FLORIDA_FANTASY_5_COST:.2f}"
+    )
+
+    print()
+
+    # --------------------------------------------------------
     # PICK 5
     # --------------------------------------------------------
 
@@ -394,7 +443,7 @@ def generate_all():
     print(
         Fore.GREEN +
         Style.BRIGHT +
-        f"  💵 TOTAL FOR ALL 5 GAMES: ${total_cost:.2f}"
+        f"  💵 TOTAL FOR ALL 6 GAMES: ${total_cost:.2f}"
     )
 
     print(Fore.CYAN + Style.BRIGHT)
@@ -445,24 +494,31 @@ def main():
 
             clear_screen()
             print_header()
-            generate_pick_5()
+            generate_fantasy_5()
             pause()
 
         elif choice == "5":
 
             clear_screen()
             print_header()
-            generate_pick_4()
+            generate_pick_5()
             pause()
 
         elif choice == "6":
 
             clear_screen()
             print_header()
-            generate_all()
+            generate_pick_4()
             pause()
 
         elif choice == "7":
+
+            clear_screen()
+            print_header()
+            generate_all()
+            pause()
+
+        elif choice == "8":
 
             clear_screen()
 
@@ -490,7 +546,7 @@ def main():
 
             print(
                 Fore.WHITE +
-                "  Please enter a number between 1 and 7."
+                "  Please enter a number between 1 and 8."
             )
 
             pause()
